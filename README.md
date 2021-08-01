@@ -10,7 +10,8 @@ You can try out various API calls via Postman (or Insomnia) using [this link](ht
 ## Recommended Requirements
 
 - docker and docker compose if using the docker approach for local development (recommended)
-- The environment variables `API_KEY` and `ALPHAVANTAGE_API_KEY` setup in the project's environment
+- The environment variables `API_KEY` and `ALPHAVANTAGE_API_KEY` setup in the project's environment.  
+  For this, clone .env.example and save it as .env with the appropriate values
 
 ## Quickstart (With Docker)
 

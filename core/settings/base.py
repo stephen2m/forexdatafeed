@@ -1,9 +1,10 @@
+from os.path import join
 from pathlib import Path
 
 import environ
 import structlog
 from celery.schedules import crontab
-from configurations import Configuration
+from configurations import Configuration, values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,6 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class BaseConfiguration(Configuration):
     # Environment
     env = environ.Env()
+    DOTENV = join(BASE_DIR, '../.env')
+    print(f'base dir is {BASE_DIR}')
+    print(f"{join(BASE_DIR, '../.env')}")
 
     DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
@@ -176,5 +180,5 @@ class BaseConfiguration(Configuration):
         },
     }
 
-    API_KEY = env('API_KEY')
-    ALPHAVANTAGE_API_KEY = env('ALPHAVANTAGE_API_KEY')
+    API_KEY = values.Value('API_KEY')
+    ALPHAVANTAGE_API_KEY = values.Value('ALPHAVANTAGE_API_KEY')

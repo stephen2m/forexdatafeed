@@ -361,4 +361,6 @@ tags
 .history
 .ionide
 
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm,visualstudiocode,vim
