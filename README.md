@@ -24,8 +24,8 @@ docker-compose up
 
 | HTTP Verb  | Endpoint  |  Usage |
 |---|---|---|
-| GET | http://localhost:8000/api/v1/quotes | trigger a refresh of the BTC/USD price (still via celery for responsiveness)  |
-| POST  | http://localhost:8000/api/v1/quotes  | fetch the latest BTC/USD quote based on the date created for the available quotes |
+| POST | http://localhost:8000/api/v1/quotes | trigger a refresh of the BTC/USD price (still via celery for responsiveness)  |
+| GET  | http://localhost:8000/api/v1/quotes  | fetch the latest BTC/USD quote based on the date created for the available quotes |
 
 ## Shell
 
