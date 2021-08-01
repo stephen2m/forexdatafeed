@@ -14,8 +14,6 @@ class BaseConfiguration(Configuration):
     # Environment
     env = environ.Env()
     DOTENV = join(BASE_DIR, '../.env')
-    print(f'base dir is {BASE_DIR}')
-    print(f"{join(BASE_DIR, '../.env')}")
 
     DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
