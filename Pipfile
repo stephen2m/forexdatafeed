@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "~=3.2"
+psycopg2 = "~=2.9"
+django-configurations = "~=2.2"
+django-environ-2 = "~=2.1"
+structlog = "~=21.1"
+celery = "~=5.1"
+redis = "~=3.5"
+requests = "~=2.26"
+
+[dev-packages]
+pre-commit = "*"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true

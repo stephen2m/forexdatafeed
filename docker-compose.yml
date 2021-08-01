@@ -1,0 +1,79 @@
+version: '3.7'
+
+x-shared-variables:
+  &shared-variables
+  environment:
+    - PORT=8000
+    - DATABASE_URL=postgresql://forexdatafeed:nkQS4d435aA3q8u6QZBLG6f7jSArDF@db:5432/forexdatafeed_api
+    - ENVIRONMENT_NAME=development
+    - DJANGO_SECRET_KEY=hpXzq4Bet6vDg62YGWEFS3oi9Mkyq7
+    - DJANGO_SETTINGS_MODULE=core.settings.development
+    - DJANGO_CONFIGURATION=Development
+    - CELERY_BROKER_URL=redis://redis:6379/1
+    - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    - API_KEY
+    - ALPHAVANTAGE_API_KEY
+  volumes:
+    - ./:/code
+  links:
+    - db:db
+  networks:
+    - webenvnetwork
+
+x-web-environment:
+  &web-environment
+  <<: *shared-variables
+  build:
+    context: ./
+    dockerfile: Dockerfile
+  depends_on:
+    - db
+
+x-celery-environment:
+  &celery-environment
+  <<: *shared-variables
+  build: ./
+  depends_on:
+    - redis
+    - db
+
+services:
+  redis:
+    image: redis:alpine
+    networks:
+      - webenvnetwork
+  celery:
+    <<: *celery-environment
+    command: celery -A core worker --loglevel=DEBUG
+  celery-beat:
+    <<: *celery-environment
+    command: celery -A core beat --loglevel=DEBUG
+  web:
+    <<: *web-environment
+    image: web
+    restart: always
+    command: scripts/local/run_web.sh
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+  db:
+    image: postgres:12.0-alpine
+    restart: on-failure
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=forexdatafeed
+      - POSTGRES_PASSWORD=nkQS4d435aA3q8u6QZBLG6f7jSArDF
+      - POSTGRES_DB=forexdatafeed_api
+    ports:
+      - 5433:5432
+    networks:
+      - webenvnetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  webenvnetwork:
+    driver: bridge

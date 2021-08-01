@@ -1,0 +1,9 @@
+celery==5.1.2
+Django==3.2.4
+django-configurations==2.2
+django-environ-2==2.1.0
+djangorestframework==3.12.4
+psycopg2==2.9.1
+redis==3.5.3
+requests==2.26.0
+structlog==21.1.0
