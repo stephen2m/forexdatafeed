@@ -180,5 +180,5 @@ class BaseConfiguration(Configuration):
         },
     }
 
-    API_KEY = values.Value('API_KEY')
-    ALPHAVANTAGE_API_KEY = values.Value('ALPHAVANTAGE_API_KEY')
+    API_KEY = values.Value('API_KEY', environ_required=True)
+    ALPHAVANTAGE_API_KEY = values.Value('ALPHAVANTAGE_API_KEY', environ_required=True)
